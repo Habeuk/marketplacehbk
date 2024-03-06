@@ -1,0 +1,58 @@
+<?php
+
+/**
+ *
+ * @file
+ * Primary module hooks for marketplacehbk module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\taxonomy\Entity\Vocabulary;
+
+//
+function marketplacehbk_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
+  //
+  // dump($element);
+}
+
+/**
+ * Gerer l'affichage du formaulaire ajout au panier.
+ *
+ * @param array $form
+ * @param FormStateInterface $form_state
+ * @param string $form_id
+ */
+function marketplacehbk_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  // dump($form_id);
+}
+
+/**
+ * Implement hook_form_FORM_ID_alter
+ * //
+ */
+function marketplacehbk_form_field_config_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  /**
+   * Ajoute la description devant chaque terme afin qu'on puisse identifier
+   * facilement le terme.
+   */
+  // dump($form);
+  if (!empty($form['default_value']['widget'][0]['target_id']['#target_type']) && $form['default_value']['widget'][0]['target_id']['#target_type'] == 'taxonomy_term' && !empty($form['settings']['handler']['handler_settings']['target_bundles']['#options'])) {
+    foreach ($form['settings']['handler']['handler_settings']['target_bundles']['#options'] as $k => $value) {
+      $voc = Vocabulary::load($k);
+      if ($voc) {
+        $form['settings']['handler']['handler_settings']['target_bundles']['#options'][$k] = $value . ' >> ' . $voc->getDescription();
+      }
+    }
+  }
+  elseif (!empty($form['default_value']['widget']['#target_type']) && $form['default_value']['widget']['#target_type'] == 'taxonomy_term' && !empty($form['settings']['handler']['handler_settings']['target_bundles']['#options'])) {
+    foreach ($form['settings']['handler']['handler_settings']['target_bundles']['#options'] as $k => $value) {
+      $voc = Vocabulary::load($k);
+      if ($voc) {
+        $form['settings']['handler']['handler_settings']['target_bundles']['#options'][$k] = $value . ' >> ' . $voc->getDescription();
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+administer marketplacehbk configuration:
+  title: 'Administer marketplacehbk configuration'
+  description: 'Optional description.'
+  restrict access: true

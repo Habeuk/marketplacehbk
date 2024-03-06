@@ -1,0 +1,14 @@
+{
+    "name": "habeuk/marketplacehbk",
+    "description": "module for marketplace",
+    "type": "drupal-custom-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kouwa stephane",
+            "email": "kksasteph888@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

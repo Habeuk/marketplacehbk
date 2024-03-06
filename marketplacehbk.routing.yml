@@ -1,0 +1,15 @@
+marketplacehbk.example:
+  path: '/marketplacehbk/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\marketplacehbk\Controller\MarketplacehbkController::build'
+  requirements:
+    _permission: 'access content'
+
+marketplacehbk.settings_form:
+  path: '/admin/config/system/marketplacehbk'
+  defaults:
+    _title: 'marketplacehbk settings'
+    _form: 'Drupal\marketplacehbk\Form\SettingsForm'
+  requirements:
+    _permission: 'administer marketplacehbk configuration'

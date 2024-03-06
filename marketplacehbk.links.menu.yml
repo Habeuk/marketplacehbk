@@ -1,0 +1,6 @@
+marketplacehbk.settings_form:
+  title: marketplacehbk
+  description: Configure marketplacehbk.
+  parent: system.admin_config_system
+  route_name: marketplacehbk.settings_form
+  weight: 10

@@ -1,0 +1,6 @@
+services:
+  marketplacehbk.event_subscriber:
+    class: Drupal\marketplacehbk\EventSubscriber\MarketplacehbkSubscriber
+    arguments: ['@messenger']
+    tags:
+      - { name: event_subscriber }
