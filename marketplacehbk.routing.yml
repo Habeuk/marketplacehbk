@@ -1,10 +1,10 @@
 marketplacehbk.example:
-  path: '/marketplacehbk/example'
+  path: '/marketplacehbk/update_fields_galleries/{commerce_bundle}'
   defaults:
     _title: 'Example'
     _controller: '\Drupal\marketplacehbk\Controller\MarketplacehbkController::build'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer marketplacehbk configuration'
 
 marketplacehbk.settings_form:
   path: '/admin/config/system/marketplacehbk'
