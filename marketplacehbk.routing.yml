@@ -6,6 +6,14 @@ marketplacehbk.example:
   requirements:
     _permission: 'administer marketplacehbk configuration'
 
+marketplacehbk.test_build_request:
+  path: '/marketplacehbk/test_build_query_views/{index_id}'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\marketplacehbk\Controller\TestBuildQueryViewsController::test_build_query_views'
+  requirements:
+    _permission: 'administer marketplacehbk configuration'
+
 marketplacehbk.settings_form:
   path: '/admin/config/system/marketplacehbk'
   defaults:
