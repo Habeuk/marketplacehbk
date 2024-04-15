@@ -30,6 +30,19 @@ function marketplacehbk_form_alter(array &$form, FormStateInterface $form_state,
 }
 
 /**
+ * implement hook_commerce_checkout_pane_info_alter
+ *
+ * @param array $definitions
+ */
+// function marketplacehbk_commerce_checkout_pane_info_alter(&$definitions) {
+// // \Drupal::messenger()->addStatus("run
+// // stripebyhabeuk_commerce_checkout_pane_info_alter");
+// // dump("stripebyhabeuk_commerce_checkout_pane_info_alter");
+// // \Stephane888\Debug\debugLog::kintDebugDrupal($definitions,
+// // 'stripebyhabeuk_commerce_checkout_pane_info_alter', true);
+// }
+
+/**
  * Implement hook_form_FORM_ID_alter
  * //
  */
