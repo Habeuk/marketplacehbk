@@ -6,6 +6,8 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\search_api\Entity\Index;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\search_api\Utility\QueryHelper;
+use Drupal\commerce_cart\CartManager;
+use Drupal\commerce_cart\CartProvider;
 
 class TestBuildQueryViewsController extends ControllerBase {
   /**
@@ -39,6 +41,23 @@ class TestBuildQueryViewsController extends ControllerBase {
     ];
     
     return $build;
+  }
+  
+  public function delete_cart() {
+    $Query = $this->entityTypeManager()->getStorage('commerce_order')->getQuery();
+    $Query->accessCheck(FALSE);
+    $ids = $Query->execute();
+    foreach ($ids as $id) {
+      // try {
+      $entity = $this->entityTypeManager()->getStorage('commerce_order')->load($id);
+      $entity->delete();
+      // }
+      // catch (\Exception $e) {
+      // dump($id);
+      // }
+    }
+    dd($ids);
+    return [];
   }
   
 }

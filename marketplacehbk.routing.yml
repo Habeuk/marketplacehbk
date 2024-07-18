@@ -13,6 +13,14 @@ marketplacehbk.test_build_request:
     _controller: '\Drupal\marketplacehbk\Controller\TestBuildQueryViewsController::test_build_query_views'
   requirements:
     _permission: 'administer marketplacehbk configuration'
+    
+marketplacehbk.delete_cart:
+  path: '/marketplacehbk/delete-cart'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\marketplacehbk\Controller\TestBuildQueryViewsController::delete_cart'
+  requirements:
+    _permission: 'administer marketplacehbk configuration'
 
 marketplacehbk.settings_form:
   path: '/admin/config/system/marketplacehbk'

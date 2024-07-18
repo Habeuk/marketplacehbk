@@ -9,24 +9,35 @@
  * This file is no longer required in Drupal 8.
  * @see https://www.drupal.org/node/2217931
  */
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\taxonomy\Entity\Vocabulary;
 
-//
-function marketplacehbk_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
-  //
-  // dump($element);
-}
-
 /**
- * Gerer l'affichage du formaulaire ajout au panier.
+ * Implement hook_entity_base_field_info
  *
- * @param array $form
- * @param FormStateInterface $form_state
- * @param string $form_id
+ * @param EntityTypeInterface $entity_type
  */
-function marketplacehbk_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
-  // dump($form_id);
+function marketplacehbk_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+  if ($entity_type->id() == 'commerce_product') {
+    /**
+     * On ajoute un champs durée de traiement en jour.
+     * Cette valeur serra ajouter sur celle determiner par le plugin de
+     * livraison.
+     */
+    $fields["hbk_duree_traitement"] = BaseFieldDefinition::create('integer')->setLabel(" Durée traitement supplementaire en heures ")->setRevisionable(TRUE)->setSettings([
+      'min' => 0
+    ])->setDisplayOptions('view', [
+      'label' => 'above',
+      'type' => 'marketplacehbk_shipping_estimation',
+      'weight' => -4
+    ])->setDisplayOptions('form', [
+      'type' => 'number'
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setDefaultValue(0)->setDescription(
+      "Definissez une durée supplementaire qui s'ajoutera à la valeur de livraison par defaut");
+  }
+  return $fields;
 }
 
 /**
@@ -43,8 +54,8 @@ function marketplacehbk_form_alter(array &$form, FormStateInterface $form_state,
 // }
 
 /**
+ * Pour faciliter utilisation des vocabulaire dans l'administration
  * Implement hook_form_FORM_ID_alter
- * //
  */
 function marketplacehbk_form_field_config_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   /**
@@ -52,7 +63,8 @@ function marketplacehbk_form_field_config_edit_form_alter(&$form, \Drupal\Core\F
    * facilement le terme.
    */
   // dump($form);
-  if (!empty($form['default_value']['widget'][0]['target_id']['#target_type']) && $form['default_value']['widget'][0]['target_id']['#target_type'] == 'taxonomy_term' && !empty($form['settings']['handler']['handler_settings']['target_bundles']['#options'])) {
+  if (!empty($form['default_value']['widget'][0]['target_id']['#target_type']) && $form['default_value']['widget'][0]['target_id']['#target_type'] == 'taxonomy_term' && !empty(
+    $form['settings']['handler']['handler_settings']['target_bundles']['#options'])) {
     foreach ($form['settings']['handler']['handler_settings']['target_bundles']['#options'] as $k => $value) {
       $voc = Vocabulary::load($k);
       if ($voc) {
@@ -60,7 +72,8 @@ function marketplacehbk_form_field_config_edit_form_alter(&$form, \Drupal\Core\F
       }
     }
   }
-  elseif (!empty($form['default_value']['widget']['#target_type']) && $form['default_value']['widget']['#target_type'] == 'taxonomy_term' && !empty($form['settings']['handler']['handler_settings']['target_bundles']['#options'])) {
+  elseif (!empty($form['default_value']['widget']['#target_type']) && $form['default_value']['widget']['#target_type'] == 'taxonomy_term' && !empty(
+    $form['settings']['handler']['handler_settings']['target_bundles']['#options'])) {
     foreach ($form['settings']['handler']['handler_settings']['target_bundles']['#options'] as $k => $value) {
       $voc = Vocabulary::load($k);
       if ($voc) {
